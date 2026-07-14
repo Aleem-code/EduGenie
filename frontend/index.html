@@ -1,0 +1,88 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Educational Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>AI Educational Assistant</h1>
+
+        <p class="subtitle">
+            Explain topics, answer questions, summarize content,
+            generate quizzes and create learning paths.
+        </p>
+
+        <!-- Feature Selection -->
+
+        <div class="feature-section">
+
+            <label for="feature">
+                Select Feature
+            </label>
+
+            <select id="feature">
+
+                <option value="explain">
+                    Topic Explanation
+                </option>
+
+                <option value="ask">
+                    Question Answering
+                </option>
+
+                <option value="summary">
+                    Text Summarization
+                </option>
+
+                <option value="quiz">
+                    Quiz Generation
+                </option>
+
+                <option value="learning-path">
+                    Learning Path Recommendation
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- User Input -->
+
+        <div class="input-section">
+
+            <textarea
+                id="userInput"
+                placeholder="Enter your topic, question or text here..."
+            ></textarea>
+
+        </div>
+
+        <!-- Action Button -->
+
+        <button id="generateBtn">
+            Generate
+        </button>
+
+        <!-- Output Area -->
+
+        <div id="output">
+
+            Results will appear here.
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>        
