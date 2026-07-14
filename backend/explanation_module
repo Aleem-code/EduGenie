@@ -1,0 +1,55 @@
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+import torch
+
+# Load model and tokenizer once when the application starts
+MODEL_NAME = "MBZUAI/LaMini-Flan-T5-783M"
+
+explain_tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+explain_model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME)
+
+# Use GPU if available
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+explain_model.to(device)
+
+
+def explain_topic(topic: str) -> str:
+    """
+    Generate a simple educational explanation for a given topic.
+    """
+
+    try:
+        prompt = (
+            f"Explain the concept of '{topic}' in a simple, clear, "
+            f"and beginner-friendly way suitable for a school student."
+        )
+
+        inputs = explain_tokenizer(
+            prompt,
+            return_tensors="pt",
+            truncation=True,
+            max_length=512
+        )
+
+        # Move inputs to same device as model
+        inputs = {k: v.to(device) for k, v in inputs.items()}
+
+        outputs = explain_model.generate(
+            **inputs,
+            max_new_tokens=150,
+            do_sample=False,      
+            num_beams=4,          
+            early_stopping=True
+        )
+
+        explanation = explain_tokenizer.decode(
+            outputs[0],
+            skip_special_tokens=True
+        )
+
+        return explanation
+
+    except Exception as e:
+        return f"Error generating explanation: {str(e)}"
+
+
+    
